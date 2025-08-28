@@ -23,12 +23,9 @@ def get_state(board):
 
 def check_winner(board, player):
     win_conditions = [
-        # Linhas
-        (0, 1, 2), (3, 4, 5), (6, 7, 8),
-        # Colunas
-        (0, 3, 6), (1, 4, 7), (2, 5, 8),
-        # Diagonais
-        (0, 4, 8), (2, 4, 6)
+        (0, 1, 2), (3, 4, 5), (6, 7, 8), # Linhas
+        (0, 3, 6), (1, 4, 7), (2, 5, 8), # Colunas
+        (0, 4, 8), (2, 4, 6) # Diagonais
     ]
     for condition in win_conditions:
         if board[condition[0]] == board[condition[1]] == board[condition[2]] == player:
@@ -102,9 +99,7 @@ def evaluate_agent(q_table, num_games=1000):
 def train_q_agent_with_evaluation(alpha, gamma, epsilon, num_episodes):
     q_table = {}
     epsilon_decay = epsilon / num_episodes
-    
     performance_history = {'episodes': [], 'wins': [], 'losses': [], 'draws': []}
-    
     evaluation_interval = num_episodes // 100 # Avalia a cada 1% dos episódios
 
     for episode in range(1, num_episodes + 1):
@@ -138,7 +133,6 @@ def train_q_agent_with_evaluation(alpha, gamma, epsilon, num_episodes):
                 done = True
                 max_q_next_state = 0.0
             else:
-                # Oponente joga aleatoriamente
                 open_spots = [i for i, spot in enumerate(board) if spot == ' ']
                 opponent_move = random.choice(open_spots)
                 board[opponent_move] = 'O'
@@ -167,7 +161,6 @@ def train_q_agent_with_evaluation(alpha, gamma, epsilon, num_episodes):
 def train_q_agent():
     global q_table
     print("Treinando o agente de Q-Learning... Por favor, aguarde.")
-    
     epsilon_decay = EPSILON / NUM_EPISODES
 
     for episode in range(NUM_EPISODES):
@@ -178,7 +171,6 @@ def train_q_agent():
         while not done:
             if state not in q_table:
                 q_table[state] = {i: 0.0 for i in range(9) if board[i] == ' '}
-
             if random.uniform(0, 1) < EPSILON - (episode * epsilon_decay):
                 possible_moves = [i for i, spot in enumerate(board) if spot == ' ']
                 if not possible_moves:
@@ -190,15 +182,12 @@ def train_q_agent():
                     action = random.choice(possible_moves) if possible_moves else -1
                 else:
                     action = max(q_table[state], key=q_table[state].get)
-                    
             if action == -1:
                 break
 
             board[action] = 'X'
             reward = get_reward(board, 'X')
-            
             next_state = get_state(board)
-            
             old_q_value = q_table[state].get(action, 0.0)
             
             if reward != 0:
