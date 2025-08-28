@@ -60,10 +60,10 @@ def train_q_agent():
             last_move_info[current_player] = (state, action)
 
             if check_winner(board, current_player):
-                reward = 1 # O jogador 
+                reward = 1 
                 done = True
             elif ' ' not in board:
-                reward = 0.5 # Empate
+                reward = 0.5 
                 done = True
 
             if done:

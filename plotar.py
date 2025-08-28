@@ -1,6 +1,6 @@
 from matplotlib import pyplot as plt
 import numpy as np
-from jogo_da_velha_agressivo import train_q_agent_with_evaluation
+from jogo_da_velha_random import train_q_agent_with_evaluation
 
 def apply_moving_average(data, window_size=50):
     if len(data) < window_size:
