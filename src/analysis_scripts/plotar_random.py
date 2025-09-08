@@ -1,6 +1,6 @@
 from matplotlib import pyplot as plt
 import numpy as np
-from jogo_da_velha_random import train_q_agent_with_evaluation
+from src.game_modules.jogo_da_velha_random import train_q_agent_with_evaluation
 
 def apply_moving_average(data, window_size=50):
     if len(data) < window_size:
@@ -24,7 +24,7 @@ def plot_results_comparison(histories, parameter_name, values):
     plt.legend()
     plt.grid(True)
     plt.ylim(0, 1.05) 
-    plt.savefig(f'comparacao_taxa_vitoria_{parameter_name}.png')
+    plt.savefig(f'graficos_random/comparacao_taxa_vitoria_{parameter_name}.png')
     plt.show()
 
 def plot_win_draw_loss_analysis(history, title):
@@ -52,7 +52,7 @@ def plot_win_draw_loss_analysis(history, title):
     plt.legend()
     plt.grid(True)
     plt.ylim(0, 1.05)
-    plt.savefig(f'analise_vitorias_empates_derrotas_{title.replace(" ", "_")}.png')
+    plt.savefig(f'graficos_random/analise_vitorias_empates_derrotas_{title.replace(" ", "_")}.png')
     plt.show()
 
 def plot_final_performance_comparison(histories, parameter_name, values):
@@ -90,7 +90,7 @@ def plot_final_performance_comparison(histories, parameter_name, values):
         yval = bar.get_height()
         plt.text(bar.get_x() + bar.get_width()/2.0, yval + 0.02, f'{yval:.2%}', va='bottom', ha='center', fontsize=10)
         
-    plt.savefig(f'comparacao_desempenho_final_{parameter_name}.png')
+    plt.savefig(f'graficos_random/comparacao_desempenho_final_{parameter_name}.png')
     plt.show()
 
 if __name__ == "__main__":
